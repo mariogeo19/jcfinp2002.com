@@ -22,11 +22,8 @@
     </head>
     <body>
         <div id="map">
-            <img class="paleta_anomsst" src="images/paleta_anomsst.png" width="300px">
-            <img class="paleta_sst" src="images/paleta_sst.png" width="300px">
-            <img class="paleta_chla" src="images/paleta_chla.PNG" width="300px">
+            <img class="paletas" src="images/paletas.PNG" width="300px">
         </div>
-        
         <script src="js/qgis2web_expressions.js"></script>
         <script src="js/leaflet.js"></script>
         <script src="js/leaflet.rotatedMarker.js"></script>
@@ -46,7 +43,7 @@
         <script>
         var map = L.map('map', {
             zoomControl:true, maxZoom:28, minZoom:1
-        }).fitBounds([[10.545821879564127,-107.6666714493091],[25.287938966473607,-87.01589019930965]]);
+        }).fitBounds([[11.193051779948757,-107.28323519267782],[22.367479830346337,-86.63245394267837]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -81,7 +78,7 @@
         function pop_GPS_1(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['fid_'] !== null ? autolinker.link(feature.properties['fid_'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2">' + (feature.properties['Id'] !== null ? autolinker.link(feature.properties['Id'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
@@ -91,13 +88,13 @@
             return {
                 pane: 'pane_GPS_1',
                 opacity: 1,
-                color: 'rgba(250,52,17,1.0)',
+                color: 'rgba(219,30,42,1.0)',
                 dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'round',
-                weight: 6.0,
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
                 fillOpacity: 0,
-                interactive: false,
+                interactive: true,
             }
         }
         map.createPane('pane_GPS_1');
@@ -105,7 +102,7 @@
         map.getPane('pane_GPS_1').style['mix-blend-mode'] = 'normal';
         var layer_GPS_1 = new L.geoJson(json_GPS_1, {
             attribution: '',
-            interactive: false,
+            interactive: true,
             dataVar: 'json_GPS_1',
             layerName: 'layer_GPS_1',
             pane: 'pane_GPS_1',
@@ -185,7 +182,7 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(0,0,0,1.0)',
-                interactive: false,
+                interactive: true,
             }
             }
             if (feature.properties['sum_nasc'] >= 50.000000 && feature.properties['sum_nasc'] <= 500.000000 ) {
@@ -201,7 +198,7 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(0,197,255,1.0)',
-                interactive: false,
+                interactive: true,
             }
             }
             if (feature.properties['sum_nasc'] >= 500.000000 && feature.properties['sum_nasc'] <= 2500.000000 ) {
@@ -217,7 +214,7 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(255,255,0,1.0)',
-                interactive: false,
+                interactive: true,
             }
             }
             if (feature.properties['sum_nasc'] >= 2500.000000 && feature.properties['sum_nasc'] <= 5000.000000 ) {
@@ -233,7 +230,7 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(255,170,0,1.0)',
-                interactive: false,
+                interactive: true,
             }
             }
             if (feature.properties['sum_nasc'] >= 5000.000000 && feature.properties['sum_nasc'] <= 20000.000000 ) {
@@ -249,7 +246,7 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(230,0,0,1.0)',
-                interactive: false,
+                interactive: true,
             }
             }
             if (feature.properties['sum_nasc'] >= 20000.000000 && feature.properties['sum_nasc'] <= 50000.000000 ) {
@@ -265,7 +262,7 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(255,190,190,1.0)',
-                interactive: false,
+                interactive: true,
             }
             }
             if (feature.properties['sum_nasc'] >= 50000.000000 && feature.properties['sum_nasc'] <= 100000.000000 ) {
@@ -281,7 +278,7 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(255,255,255,1.0)',
-                interactive: false,
+                interactive: true,
             }
             }
         }
@@ -290,7 +287,7 @@
         map.getPane('pane_NASC_5').style['mix-blend-mode'] = 'normal';
         var layer_NASC_5 = new L.geoJson(json_NASC_5, {
             attribution: '',
-            interactive: false,
+            interactive: true,
             dataVar: 'json_NASC_5',
             layerName: 'layer_NASC_5',
             pane: 'pane_NASC_5',
@@ -363,7 +360,7 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(177,141,91,1.0)',
-                interactive: false,
+                interactive: true,
             }
         }
         map.createPane('pane_Muestreoconpoteras_6');
@@ -371,7 +368,7 @@
         map.getPane('pane_Muestreoconpoteras_6').style['mix-blend-mode'] = 'normal';
         var layer_Muestreoconpoteras_6 = new L.geoJson(json_Muestreoconpoteras_6, {
             attribution: '',
-            interactive: false,
+            interactive: true,
             dataVar: 'json_Muestreoconpoteras_6',
             layerName: 'layer_Muestreoconpoteras_6',
             pane: 'pane_Muestreoconpoteras_6',
@@ -816,7 +813,7 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(0,0,0,1.0)',
-                interactive: false,
+                interactive: true,
             }
         }
         map.createPane('pane_Muestreodelarvas_7');
@@ -824,7 +821,7 @@
         map.getPane('pane_Muestreodelarvas_7').style['mix-blend-mode'] = 'normal';
         var layer_Muestreodelarvas_7 = new L.geoJson(json_Muestreodelarvas_7, {
             attribution: '',
-            interactive: false,
+            interactive: true,
             dataVar: 'json_Muestreodelarvas_7',
             layerName: 'layer_Muestreodelarvas_7',
             pane: 'pane_Muestreodelarvas_7',
@@ -924,7 +921,7 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(72,123,182,1.0)',
-                interactive: false,
+                interactive: true,
             }
         }
         map.createPane('pane_Lancesdepesca_8');
@@ -932,7 +929,7 @@
         map.getPane('pane_Lancesdepesca_8').style['mix-blend-mode'] = 'normal';
         var layer_Lancesdepesca_8 = new L.geoJson(json_Lancesdepesca_8, {
             attribution: '',
-            interactive: false,
+            interactive: true,
             dataVar: 'json_Lancesdepesca_8',
             layerName: 'layer_Lancesdepesca_8',
             pane: 'pane_Lancesdepesca_8',
@@ -993,7 +990,7 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(248,105,166,1.0)',
-                interactive: false,
+                interactive: true,
             }
         }
         map.createPane('pane_EstacionesOceanogrficas_9');
@@ -1001,7 +998,7 @@
         map.getPane('pane_EstacionesOceanogrficas_9').style['mix-blend-mode'] = 'normal';
         var layer_EstacionesOceanogrficas_9 = new L.geoJson(json_EstacionesOceanogrficas_9, {
             attribution: '',
-            interactive: false,
+            interactive: true,
             dataVar: 'json_EstacionesOceanogrficas_9',
             layerName: 'layer_EstacionesOceanogrficas_9',
             pane: 'pane_EstacionesOceanogrficas_9',

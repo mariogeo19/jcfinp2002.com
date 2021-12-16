@@ -1,26 +1,8 @@
-.paleta_anomsst {
+.paletas {
     position:relative;
-    bottom: -94%;
-    left: 70%;
-    height: 40px;
-    width: 400px;
-    z-index: 800;
-}
-
-.paleta_sst {
-    position:relative;
-    bottom: -94%;
-    left: -15%;
-    height: 40px;
-    width: 400px;
-    z-index: 800;
-}
-
-.paleta_chla {
-    position:relative;
-    bottom: -94%;
-    left: -13%;
-    height: 30px;
+    bottom: -93%;
+    left: 10%;
+    height: 45px;
     width: 400px;
     z-index: 800;
 }
