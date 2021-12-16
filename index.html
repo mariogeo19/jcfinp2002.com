@@ -1,0 +1,1029 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/styles.css">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/leaflet-measure.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+            <img class="paleta_anomsst" src="images/paleta_anomsst.png" width="300px">
+            <img class="paleta_sst" src="images/paleta_sst.png" width="300px">
+            <img class="paleta_chla" src="images/paleta_chla.PNG" width="300px">
+        </div>
+        
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-measure.js"></script>
+        <script src="data/GPS_1.js"></script>
+        <script src="data/NASC_5.js"></script>
+        <script src="data/Muestreoconpoteras_6.js"></script>
+        <script src="data/Muestreodelarvas_7.js"></script>
+        <script src="data/Lancesdepesca_8.js"></script>
+        <script src="data/EstacionesOceanogrficas_9.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[10.545821879564127,-107.6666714493091],[25.287938966473607,-87.01589019930965]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        var measureControl = new L.Control.Measure({
+            position: 'topleft',
+            primaryLengthUnit: 'meters',
+            secondaryLengthUnit: 'kilometers',
+            primaryAreaUnit: 'sqmeters',
+            secondaryAreaUnit: 'hectares'
+        });
+        measureControl.addTo(map);
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .innerHTML = '';
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .className += ' fas fa-ruler';
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_GoogleSatellite_0');
+        map.getPane('pane_GoogleSatellite_0').style.zIndex = 400;
+        var layer_GoogleSatellite_0 = L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+            pane: 'pane_GoogleSatellite_0',
+            opacity: 1.0,
+            attribution: '<a href="https://www.google.at/permissions/geoguidelines/attr-guide.html">Map data ©2015 Google</a>',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 20
+        });
+        layer_GoogleSatellite_0;
+        map.addLayer(layer_GoogleSatellite_0);
+        function pop_GPS_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid_'] !== null ? autolinker.link(feature.properties['fid_'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_GPS_1_0() {
+            return {
+                pane: 'pane_GPS_1',
+                opacity: 1,
+                color: 'rgba(250,52,17,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'round',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: false,
+            }
+        }
+        map.createPane('pane_GPS_1');
+        map.getPane('pane_GPS_1').style.zIndex = 401;
+        map.getPane('pane_GPS_1').style['mix-blend-mode'] = 'normal';
+        var layer_GPS_1 = new L.geoJson(json_GPS_1, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_GPS_1',
+            layerName: 'layer_GPS_1',
+            pane: 'pane_GPS_1',
+            onEachFeature: pop_GPS_1,
+            style: style_GPS_1_0,
+        });
+        bounds_group.addLayer(layer_GPS_1);
+        map.addLayer(layer_GPS_1);
+        map.createPane('pane_chla_2');
+        map.getPane('pane_chla_2').style.zIndex = 402;
+        var img_chla_2 = 'data/chla_2.png';
+        var img_bounds_chla_2 = [[13.41300000007,-106.22707999999994],[22.541474859507723,-92.61635999999999]];
+        var layer_chla_2 = new L.imageOverlay(img_chla_2,
+                                              img_bounds_chla_2,
+                                              {pane: 'pane_chla_2'});
+        bounds_group.addLayer(layer_chla_2);
+        map.addLayer(layer_chla_2);
+        map.createPane('pane_sal_3');
+        map.getPane('pane_sal_3').style.zIndex = 403;
+        var img_sal_3 = 'data/sal_3.png';
+        var img_bounds_sal_3 = [[13.41300000007,-106.22707999999994],[22.541474859507723,-92.61635999999999]];
+        var layer_sal_3 = new L.imageOverlay(img_sal_3,
+                                              img_bounds_sal_3,
+                                              {pane: 'pane_sal_3'});
+        bounds_group.addLayer(layer_sal_3);
+        map.addLayer(layer_sal_3);
+        map.createPane('pane_temp_4');
+        map.getPane('pane_temp_4').style.zIndex = 404;
+        var img_temp_4 = 'data/temp_4.png';
+        var img_bounds_temp_4 = [[13.41300000007,-106.22707999999994],[22.541474859507723,-92.61635999999999]];
+        var layer_temp_4 = new L.imageOverlay(img_temp_4,
+                                              img_bounds_temp_4,
+                                              {pane: 'pane_temp_4'});
+        bounds_group.addLayer(layer_temp_4);
+        map.addLayer(layer_temp_4);
+        function pop_NASC_5(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid_'] !== null ? autolinker.link(feature.properties['fid_'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['date'] !== null ? autolinker.link(feature.properties['date'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['time'] !== null ? autolinker.link(feature.properties['time'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['cruise'] !== null ? autolinker.link(feature.properties['cruise'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['sum_nasc'] !== null ? autolinker.link(feature.properties['sum_nasc'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['mean_nasc'] !== null ? autolinker.link(feature.properties['mean_nasc'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['species'] !== null ? autolinker.link(feature.properties['species'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['template'] !== null ? autolinker.link(feature.properties['template'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_NASC_5_0(feature) {
+            if (feature.properties['sum_nasc'] >= 0.000000 && feature.properties['sum_nasc'] <= 50.000000 ) {
+                return {
+                pane: 'pane_NASC_5',
+                radius: 1.0,
+                opacity: 1,
+                color: 'rgba(31,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(0,0,0,1.0)',
+                interactive: false,
+            }
+            }
+            if (feature.properties['sum_nasc'] >= 50.000000 && feature.properties['sum_nasc'] <= 500.000000 ) {
+                return {
+                pane: 'pane_NASC_5',
+                radius: 3.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(0,197,255,1.0)',
+                interactive: false,
+            }
+            }
+            if (feature.properties['sum_nasc'] >= 500.000000 && feature.properties['sum_nasc'] <= 2500.000000 ) {
+                return {
+                pane: 'pane_NASC_5',
+                radius: 5.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,255,0,1.0)',
+                interactive: false,
+            }
+            }
+            if (feature.properties['sum_nasc'] >= 2500.000000 && feature.properties['sum_nasc'] <= 5000.000000 ) {
+                return {
+                pane: 'pane_NASC_5',
+                radius: 7.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,170,0,1.0)',
+                interactive: false,
+            }
+            }
+            if (feature.properties['sum_nasc'] >= 5000.000000 && feature.properties['sum_nasc'] <= 20000.000000 ) {
+                return {
+                pane: 'pane_NASC_5',
+                radius: 9.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(230,0,0,1.0)',
+                interactive: false,
+            }
+            }
+            if (feature.properties['sum_nasc'] >= 20000.000000 && feature.properties['sum_nasc'] <= 50000.000000 ) {
+                return {
+                pane: 'pane_NASC_5',
+                radius: 11.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,190,190,1.0)',
+                interactive: false,
+            }
+            }
+            if (feature.properties['sum_nasc'] >= 50000.000000 && feature.properties['sum_nasc'] <= 100000.000000 ) {
+                return {
+                pane: 'pane_NASC_5',
+                radius: 13.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,255,255,1.0)',
+                interactive: false,
+            }
+            }
+        }
+        map.createPane('pane_NASC_5');
+        map.getPane('pane_NASC_5').style.zIndex = 405;
+        map.getPane('pane_NASC_5').style['mix-blend-mode'] = 'normal';
+        var layer_NASC_5 = new L.geoJson(json_NASC_5, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_NASC_5',
+            layerName: 'layer_NASC_5',
+            pane: 'pane_NASC_5',
+            onEachFeature: pop_NASC_5,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_NASC_5_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_NASC_5);
+        map.addLayer(layer_NASC_5);
+        function pop_Muestreoconpoteras_6(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid_1'] !== null ? autolinker.link(feature.properties['fid_1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Poteras'] !== null ? autolinker.link(feature.properties['Poteras'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['lat'] !== null ? autolinker.link(feature.properties['lat'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['lon'] !== null ? autolinker.link(feature.properties['lon'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Fecha'] !== null ? autolinker.link(feature.properties['Fecha'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['UTC'] !== null ? autolinker.link(feature.properties['UTC'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Local'] !== null ? autolinker.link(feature.properties['Local'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Profundida'] !== null ? autolinker.link(feature.properties['Profundida'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ID'] !== null ? autolinker.link(feature.properties['ID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['EO'] !== null ? autolinker.link(feature.properties['EO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['kg'] !== null ? autolinker.link(feature.properties['kg'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['No_inds'] !== null ? autolinker.link(feature.properties['No_inds'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Avistamien'] !== null ? autolinker.link(feature.properties['Avistamien'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Muestreoconpoteras_6_0() {
+            return {
+                pane: 'pane_Muestreoconpoteras_6',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(128,17,25,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(177,141,91,1.0)',
+                interactive: false,
+            }
+        }
+        map.createPane('pane_Muestreoconpoteras_6');
+        map.getPane('pane_Muestreoconpoteras_6').style.zIndex = 406;
+        map.getPane('pane_Muestreoconpoteras_6').style['mix-blend-mode'] = 'normal';
+        var layer_Muestreoconpoteras_6 = new L.geoJson(json_Muestreoconpoteras_6, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_Muestreoconpoteras_6',
+            layerName: 'layer_Muestreoconpoteras_6',
+            pane: 'pane_Muestreoconpoteras_6',
+            onEachFeature: pop_Muestreoconpoteras_6,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_Muestreoconpoteras_6_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_Muestreoconpoteras_6);
+        map.addLayer(layer_Muestreoconpoteras_6);
+        function pop_Muestreodelarvas_7(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Longitud'] !== null ? autolinker.link(feature.properties['Longitud'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Latitud'] !== null ? autolinker.link(feature.properties['Latitud'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Linea'] !== null ? autolinker.link(feature.properties['Linea'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ID_del_pun'] !== null ? autolinker.link(feature.properties['ID_del_pun'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Nombre'] !== null ? autolinker.link(feature.properties['Nombre'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Estacion'] !== null ? autolinker.link(feature.properties['Estacion'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Observacio'] !== null ? autolinker.link(feature.properties['Observacio'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Transecto'] !== null ? autolinker.link(feature.properties['Transecto'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ID'] !== null ? autolinker.link(feature.properties['ID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Estacion_1'] !== null ? autolinker.link(feature.properties['Estacion_1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Secuencia'] !== null ? autolinker.link(feature.properties['Secuencia'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Albula_sp'] !== null ? autolinker.link(feature.properties['Albula_sp'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Anarchias'] !== null ? autolinker.link(feature.properties['Anarchias'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Gymnothora'] !== null ? autolinker.link(feature.properties['Gymnothora'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Ophichthid'] !== null ? autolinker.link(feature.properties['Ophichthid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Myrophis_v'] !== null ? autolinker.link(feature.properties['Myrophis_v'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Ophichthus'] !== null ? autolinker.link(feature.properties['Ophichthus'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Ophichth_1'] !== null ? autolinker.link(feature.properties['Ophichth_1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Congridae_'] !== null ? autolinker.link(feature.properties['Congridae_'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Heterocong'] !== null ? autolinker.link(feature.properties['Heterocong'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Ariosoma_g'] !== null ? autolinker.link(feature.properties['Ariosoma_g'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Paraconger'] !== null ? autolinker.link(feature.properties['Paraconger'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Rhynchocon'] !== null ? autolinker.link(feature.properties['Rhynchocon'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Hoplunnis'] !== null ? autolinker.link(feature.properties['Hoplunnis'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Clupeidae_'] !== null ? autolinker.link(feature.properties['Clupeidae_'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Engraulida'] !== null ? autolinker.link(feature.properties['Engraulida'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Vinciguerr'] !== null ? autolinker.link(feature.properties['Vinciguerr'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Idiacanthu'] !== null ? autolinker.link(feature.properties['Idiacanthu'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Gonostomat'] !== null ? autolinker.link(feature.properties['Gonostomat'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Diplophos_'] !== null ? autolinker.link(feature.properties['Diplophos_'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Melanostom'] !== null ? autolinker.link(feature.properties['Melanostom'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Bathophilu'] !== null ? autolinker.link(feature.properties['Bathophilu'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Brosmophyc'] !== null ? autolinker.link(feature.properties['Brosmophyc'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Ophidiidae'] !== null ? autolinker.link(feature.properties['Ophidiidae'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Cherublemm'] !== null ? autolinker.link(feature.properties['Cherublemm'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Ophidion_g'] !== null ? autolinker.link(feature.properties['Ophidion_g'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Ophidion_s'] !== null ? autolinker.link(feature.properties['Ophidion_s'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Bathylagid'] !== null ? autolinker.link(feature.properties['Bathylagid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Bathylagus'] !== null ? autolinker.link(feature.properties['Bathylagus'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Bathylag_1'] !== null ? autolinker.link(feature.properties['Bathylag_1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Scopelarch'] !== null ? autolinker.link(feature.properties['Scopelarch'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Myctophida'] !== null ? autolinker.link(feature.properties['Myctophida'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Benthosema'] !== null ? autolinker.link(feature.properties['Benthosema'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Diaphus_ge'] !== null ? autolinker.link(feature.properties['Diaphus_ge'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Diaphus_pa'] !== null ? autolinker.link(feature.properties['Diaphus_pa'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Diogenicht'] !== null ? autolinker.link(feature.properties['Diogenicht'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Lampanyctu'] !== null ? autolinker.link(feature.properties['Lampanyctu'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Myctophum'] !== null ? autolinker.link(feature.properties['Myctophum'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Lophiiform'] !== null ? autolinker.link(feature.properties['Lophiiform'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Melanocetu'] !== null ? autolinker.link(feature.properties['Melanocetu'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Borophryne'] !== null ? autolinker.link(feature.properties['Borophryne'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Lampridifo'] !== null ? autolinker.link(feature.properties['Lampridifo'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Trachipter'] !== null ? autolinker.link(feature.properties['Trachipter'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Bregmacero'] !== null ? autolinker.link(feature.properties['Bregmacero'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Bregmace_1'] !== null ? autolinker.link(feature.properties['Bregmace_1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Synodus_ge'] !== null ? autolinker.link(feature.properties['Synodus_ge'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Lestidiops'] !== null ? autolinker.link(feature.properties['Lestidiops'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Melamphaid'] !== null ? autolinker.link(feature.properties['Melamphaid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Scopelogad'] !== null ? autolinker.link(feature.properties['Scopelogad'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Mullidae_f'] !== null ? autolinker.link(feature.properties['Mullidae_f'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Sciaenidae'] !== null ? autolinker.link(feature.properties['Sciaenidae'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Exocoetida'] !== null ? autolinker.link(feature.properties['Exocoetida'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Hirundicht'] !== null ? autolinker.link(feature.properties['Hirundicht'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Oxyporhamp'] !== null ? autolinker.link(feature.properties['Oxyporhamp'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Fistularia'] !== null ? autolinker.link(feature.properties['Fistularia'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Holocentri'] !== null ? autolinker.link(feature.properties['Holocentri'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Apogon_sub'] !== null ? autolinker.link(feature.properties['Apogon_sub'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Scorpaenid'] !== null ? autolinker.link(feature.properties['Scorpaenid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Pontinus_s'] !== null ? autolinker.link(feature.properties['Pontinus_s'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Triglidae_'] !== null ? autolinker.link(feature.properties['Triglidae_'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Serranidae'] !== null ? autolinker.link(feature.properties['Serranidae'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Epinepelus'] !== null ? autolinker.link(feature.properties['Epinepelus'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Paralabrax'] !== null ? autolinker.link(feature.properties['Paralabrax'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Paranthias'] !== null ? autolinker.link(feature.properties['Paranthias'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Lutjanidae'] !== null ? autolinker.link(feature.properties['Lutjanidae'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Lutjanus_g'] !== null ? autolinker.link(feature.properties['Lutjanus_g'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Hoplopagru'] !== null ? autolinker.link(feature.properties['Hoplopagru'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Gerreidae_'] !== null ? autolinker.link(feature.properties['Gerreidae_'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Eucinostom'] !== null ? autolinker.link(feature.properties['Eucinostom'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Haemulidae'] !== null ? autolinker.link(feature.properties['Haemulidae'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Pomacentri'] !== null ? autolinker.link(feature.properties['Pomacentri'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Abudefduf'] !== null ? autolinker.link(feature.properties['Abudefduf'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Chromis_pn'] !== null ? autolinker.link(feature.properties['Chromis_pn'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Stegastes'] !== null ? autolinker.link(feature.properties['Stegastes'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Carangidae'] !== null ? autolinker.link(feature.properties['Carangidae'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Caranx_gen'] !== null ? autolinker.link(feature.properties['Caranx_gen'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Caranx_cab'] !== null ? autolinker.link(feature.properties['Caranx_cab'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Caranx_sex'] !== null ? autolinker.link(feature.properties['Caranx_sex'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Chloroscom'] !== null ? autolinker.link(feature.properties['Chloroscom'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Decapterus'] !== null ? autolinker.link(feature.properties['Decapterus'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Naucrates'] !== null ? autolinker.link(feature.properties['Naucrates'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Seriola_ge'] !== null ? autolinker.link(feature.properties['Seriola_ge'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Selar_crum'] !== null ? autolinker.link(feature.properties['Selar_crum'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Selene'] !== null ? autolinker.link(feature.properties['Selene'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Trachinotu'] !== null ? autolinker.link(feature.properties['Trachinotu'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Mugil_ceph'] !== null ? autolinker.link(feature.properties['Mugil_ceph'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Coryphaena'] !== null ? autolinker.link(feature.properties['Coryphaena'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Blennidae_'] !== null ? autolinker.link(feature.properties['Blennidae_'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Microdesmu'] !== null ? autolinker.link(feature.properties['Microdesmu'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Callionymi'] !== null ? autolinker.link(feature.properties['Callionymi'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Dormitator'] !== null ? autolinker.link(feature.properties['Dormitator'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Gobiidae_f'] !== null ? autolinker.link(feature.properties['Gobiidae_f'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Sphyraena'] !== null ? autolinker.link(feature.properties['Sphyraena'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Gempylidae'] !== null ? autolinker.link(feature.properties['Gempylidae'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Scombridae'] !== null ? autolinker.link(feature.properties['Scombridae'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Auxis_gen'] !== null ? autolinker.link(feature.properties['Auxis_gen'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Euthynnus_'] !== null ? autolinker.link(feature.properties['Euthynnus_'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Thunnus_al'] !== null ? autolinker.link(feature.properties['Thunnus_al'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Polydactyl'] !== null ? autolinker.link(feature.properties['Polydactyl'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Halichoere'] !== null ? autolinker.link(feature.properties['Halichoere'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Halichoe_1'] !== null ? autolinker.link(feature.properties['Halichoe_1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Xyrichthys'] !== null ? autolinker.link(feature.properties['Xyrichthys'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Peprilus_g'] !== null ? autolinker.link(feature.properties['Peprilus_g'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Nomeidae_f'] !== null ? autolinker.link(feature.properties['Nomeidae_f'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Cubiceps_p'] !== null ? autolinker.link(feature.properties['Cubiceps_p'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Psenes_pel'] !== null ? autolinker.link(feature.properties['Psenes_pel'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Psenes_sio'] !== null ? autolinker.link(feature.properties['Psenes_sio'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Psenes_gen'] !== null ? autolinker.link(feature.properties['Psenes_gen'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Bothidae_f'] !== null ? autolinker.link(feature.properties['Bothidae_f'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Bothus_gen'] !== null ? autolinker.link(feature.properties['Bothus_gen'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Bothus_leo'] !== null ? autolinker.link(feature.properties['Bothus_leo'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Paralichth'] !== null ? autolinker.link(feature.properties['Paralichth'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Cyclopsett'] !== null ? autolinker.link(feature.properties['Cyclopsett'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Cyclopse_1'] !== null ? autolinker.link(feature.properties['Cyclopse_1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Cyclopse_2'] !== null ? autolinker.link(feature.properties['Cyclopse_2'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Citharicht'] !== null ? autolinker.link(feature.properties['Citharicht'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Citharic_1'] !== null ? autolinker.link(feature.properties['Citharic_1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Syacium_ov'] !== null ? autolinker.link(feature.properties['Syacium_ov'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Achirus_ma'] !== null ? autolinker.link(feature.properties['Achirus_ma'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Symphurus'] !== null ? autolinker.link(feature.properties['Symphurus'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Symphuru_1'] !== null ? autolinker.link(feature.properties['Symphuru_1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Balistidae'] !== null ? autolinker.link(feature.properties['Balistidae'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Sphoeroide'] !== null ? autolinker.link(feature.properties['Sphoeroide'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['NO_identif'] !== null ? autolinker.link(feature.properties['NO_identif'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Total'] !== null ? autolinker.link(feature.properties['Total'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['calamar'] !== null ? autolinker.link(feature.properties['calamar'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Octopoda'] !== null ? autolinker.link(feature.properties['Octopoda'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Muestreodelarvas_7_0() {
+            return {
+                pane: 'pane_Muestreodelarvas_7',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(255,255,255,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(0,0,0,1.0)',
+                interactive: false,
+            }
+        }
+        map.createPane('pane_Muestreodelarvas_7');
+        map.getPane('pane_Muestreodelarvas_7').style.zIndex = 407;
+        map.getPane('pane_Muestreodelarvas_7').style['mix-blend-mode'] = 'normal';
+        var layer_Muestreodelarvas_7 = new L.geoJson(json_Muestreodelarvas_7, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_Muestreodelarvas_7',
+            layerName: 'layer_Muestreodelarvas_7',
+            pane: 'pane_Muestreodelarvas_7',
+            onEachFeature: pop_Muestreodelarvas_7,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_Muestreodelarvas_7_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_Muestreodelarvas_7);
+        map.addLayer(layer_Muestreodelarvas_7);
+        function pop_Lancesdepesca_8(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['id'] !== null ? autolinker.link(feature.properties['id'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Num_Lance'] !== null ? autolinker.link(feature.properties['Num_Lance'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Guardia'] !== null ? autolinker.link(feature.properties['Guardia'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Observacio'] !== null ? autolinker.link(feature.properties['Observacio'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Id_pantall'] !== null ? autolinker.link(feature.properties['Id_pantall'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Tipo'] !== null ? autolinker.link(feature.properties['Tipo'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Lance'] !== null ? autolinker.link(feature.properties['Lance'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Argonauta'] !== null ? autolinker.link(feature.properties['Argonauta'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Dosidicus'] !== null ? autolinker.link(feature.properties['Dosidicus'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Enoploteut'] !== null ? autolinker.link(feature.properties['Enoploteut'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Portunus_s'] !== null ? autolinker.link(feature.properties['Portunus_s'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Solenocera'] !== null ? autolinker.link(feature.properties['Solenocera'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Vinciguerr'] !== null ? autolinker.link(feature.properties['Vinciguerr'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Auxis_thaz'] !== null ? autolinker.link(feature.properties['Auxis_thaz'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Cyclopsett'] !== null ? autolinker.link(feature.properties['Cyclopsett'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Cyclopse_1'] !== null ? autolinker.link(feature.properties['Cyclopse_1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Gymnura_ma'] !== null ? autolinker.link(feature.properties['Gymnura_ma'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Lutjanus_g'] !== null ? autolinker.link(feature.properties['Lutjanus_g'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Micropogon'] !== null ? autolinker.link(feature.properties['Micropogon'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Penaeus_br'] !== null ? autolinker.link(feature.properties['Penaeus_br'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Sarda_orie'] !== null ? autolinker.link(feature.properties['Sarda_orie'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['PlerondesP'] !== null ? autolinker.link(feature.properties['PlerondesP'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Lancesdepesca_8_0() {
+            return {
+                pane: 'pane_Lancesdepesca_8',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(50,87,128,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(72,123,182,1.0)',
+                interactive: false,
+            }
+        }
+        map.createPane('pane_Lancesdepesca_8');
+        map.getPane('pane_Lancesdepesca_8').style.zIndex = 408;
+        map.getPane('pane_Lancesdepesca_8').style['mix-blend-mode'] = 'normal';
+        var layer_Lancesdepesca_8 = new L.geoJson(json_Lancesdepesca_8, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_Lancesdepesca_8',
+            layerName: 'layer_Lancesdepesca_8',
+            pane: 'pane_Lancesdepesca_8',
+            onEachFeature: pop_Lancesdepesca_8,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_Lancesdepesca_8_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_Lancesdepesca_8);
+        map.addLayer(layer_Lancesdepesca_8);
+        function pop_EstacionesOceanogrficas_9(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Longitud'] !== null ? autolinker.link(feature.properties['Longitud'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Latitud'] !== null ? autolinker.link(feature.properties['Latitud'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Linea'] !== null ? autolinker.link(feature.properties['Linea'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ID_del_pun'] !== null ? autolinker.link(feature.properties['ID_del_pun'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Nombre'] !== null ? autolinker.link(feature.properties['Nombre'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Estacion'] !== null ? autolinker.link(feature.properties['Estacion'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Observacio'] !== null ? autolinker.link(feature.properties['Observacio'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Transecto'] !== null ? autolinker.link(feature.properties['Transecto'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ID'] !== null ? autolinker.link(feature.properties['ID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_EstacionesOceanogrficas_9_0() {
+            return {
+                pane: 'pane_EstacionesOceanogrficas_9',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(128,17,25,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(248,105,166,1.0)',
+                interactive: false,
+            }
+        }
+        map.createPane('pane_EstacionesOceanogrficas_9');
+        map.getPane('pane_EstacionesOceanogrficas_9').style.zIndex = 409;
+        map.getPane('pane_EstacionesOceanogrficas_9').style['mix-blend-mode'] = 'normal';
+        var layer_EstacionesOceanogrficas_9 = new L.geoJson(json_EstacionesOceanogrficas_9, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_EstacionesOceanogrficas_9',
+            layerName: 'layer_EstacionesOceanogrficas_9',
+            pane: 'pane_EstacionesOceanogrficas_9',
+            onEachFeature: pop_EstacionesOceanogrficas_9,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_EstacionesOceanogrficas_9_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_EstacionesOceanogrficas_9);
+        map.addLayer(layer_EstacionesOceanogrficas_9);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/EstacionesOceanogrficas_9.png" /> Estaciones Oceanográficas': layer_EstacionesOceanogrficas_9,'<img src="legend/Lancesdepesca_8.png" /> Lances de pesca': layer_Lancesdepesca_8,'<img src="legend/Muestreodelarvas_7.png" /> Muestreo de larvas': layer_Muestreodelarvas_7,'<img src="legend/Muestreoconpoteras_6.png" /> Muestreo con poteras': layer_Muestreoconpoteras_6,'NASC<br /><table><tr><td style="text-align: center;"><img src="legend/NASC_5_0500.png" /></td><td>0 - 50</td></tr><tr><td style="text-align: center;"><img src="legend/NASC_5_505001.png" /></td><td>50 - 500</td></tr><tr><td style="text-align: center;"><img src="legend/NASC_5_50025002.png" /></td><td>500 - 2500</td></tr><tr><td style="text-align: center;"><img src="legend/NASC_5_250050003.png" /></td><td>2500 - 5000</td></tr><tr><td style="text-align: center;"><img src="legend/NASC_5_5000200004.png" /></td><td>5000 - 20000</td></tr><tr><td style="text-align: center;"><img src="legend/NASC_5_20000500005.png" /></td><td>20000 - 50000</td></tr><tr><td style="text-align: center;"><img src="legend/NASC_5_500001000006.png" /></td><td>50000 - 100000</td></tr></table>': layer_NASC_5,"temp": layer_temp_4,"sal": layer_sal_3,"chla": layer_chla_2,'<img src="legend/GPS_1.png" /> GPS': layer_GPS_1,"Google Satellite": layer_GoogleSatellite_0,},{collapsed:false}).addTo(map);
+        setBounds();
+        L.ImageOverlay.include({
+            getBounds: function () {
+                return this._bounds;
+            }
+        });
+        </script>
+    </body>
+</html>
