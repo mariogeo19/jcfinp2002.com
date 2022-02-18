@@ -1,33 +1,23 @@
-.paletas {
-    position:relative;
-    bottom: -93%;
-    left: 8%;
-    height: 45px;
-    width: 400px;
-    z-index: 800;
-}
 
 .navegacion {
-    position: relative;
     background-color: #0c231e;
-    border: 1px solid #0c231e;
-    z-index: 1000;
     font-size: 20px;
+    height: 50px;
 }
 
 .logo-agricultura{
     width: 200px;
-    margin: 10px;
+    margin-top: 2px;
 }
 .logo-inapesca{
     width: 150px;
-    margin: 10px;
+    margin-top: 2px;
     display: inline-block;
 }
 .navegacion ul{
     list-style: none;
     display: inline-block;
-    margin: 20px;
+    margin: 10px;
 }
 .navegacion ul li {
     display: inline-block;
@@ -40,11 +30,47 @@
 }
 
 #map {
-    position: absolute;
-    height: 88vh;
-    /*top:11%;*/
+    height: calc(100vh - 50px);
     left: 0%;
-    /*bottom: 0%;*/
     width: 100%;
 }
 
+
+.paletas {
+    position:relative;
+    bottom: -93%;
+    left: 8%;
+    height: 45px;
+    width: 400px;
+    z-index: 800;
+}
+
+.table-layer {
+    text-align:left;
+    border-collapse: collapse;
+    width: 100%;
+    }
+    
+     .table-layer td{
+        padding: 10px, 5px, 10px, 5px;
+    }
+    
+     .table-layer thead{
+        background-color: #2042BD;
+        border-bottom: 20px;
+        color: white;
+        padding: 1em, 3px, 2px,3px;
+    }
+    
+     .table-layer tr:nth-child(even){
+        background: #ddd;
+    }
+     .table-layer tr:hover td {
+        background-color: #7B8DBD;
+        color: white;
+    }
+
+    .table-layer img {
+        height: 180px;
+        width: 180px;
+    }
